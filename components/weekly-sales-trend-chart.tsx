@@ -74,6 +74,80 @@ const formatTooltip = (value: number) => {
   return new Intl.NumberFormat('ja-JP').format(value)
 }
 
+// 年度ごとのデータをオブジェクトに分ける
+const salesData = {
+  2022: {
+    amountData: [
+      { week: '7/4', 'M/長袖CS': 44100, 'M/半袖CS': 1499336, 'M/JK': 94720, 'M/BZ': 174236, 'M/VEST': 0, 'M/PT': 387630, 'M/SPT': 419182, 'M/KNIT': 0, 'M/ACC': 2294970, 'M/TTL': 5266974, 'L/長袖CS': 162538, 'L/半袖CS': 443513, 'L/JK': 0, 'L/BZ': 76367, 'L/VEST': 0, 'L/SK': 65339, 'L/PT': 130858, 'L/SPT': 182586, 'L/OP': 325408, 'L/KNIT': 21108, 'L/ACC': 429797, 'L/TTL': 1837514 },
+      { week: '7/11', 'M/長袖CS': 9000, 'M/半袖CS': 1147477, 'M/JK': 67868, 'M/BZ': 334560, 'M/VEST': 0, 'M/PT': 256395, 'M/SPT': 249111, 'M/KNIT': 49000, 'M/ACC': 1228424, 'M/TTL': 3652256, 'L/長袖CS': 191400, 'L/半袖CS': 379594, 'L/JK': 0, 'L/BZ': 18917, 'L/VEST': 0, 'L/SK': 22753, 'L/PT': 208294, 'L/SPT': 151000, 'L/OP': 696052, 'L/KNIT': 26000, 'L/ACC': 273395, 'L/TTL': 1967405 },
+      { week: '7/18', 'M/長袖CS': 27000, 'M/半袖CS': 1188676, 'M/JK': 27481, 'M/BZ': 17089, 'M/VEST': 0, 'M/PT': 119826, 'M/SPT': 316055, 'M/KNIT': 65875, 'M/ACC': 1237713, 'M/TTL': 3171327, 'L/長袖CS': 160042, 'L/半袖CS': 648544, 'L/JK': 0, 'L/BZ': 0, 'L/VEST': 0, 'L/SK': 39563, 'L/PT': 213133, 'L/SPT': 239746, 'L/OP': 127452, 'L/KNIT': 0, 'L/ACC': 312513, 'L/TTL': 1740993 },
+      { week: '7/25', 'M/長袖CS': 8100, 'M/半袖CS': 788240, 'M/JK': 0, 'M/BZ': 23000, 'M/VEST': 0, 'M/PT': 154689, 'M/SPT': 444045, 'M/KNIT': 52000, 'M/ACC': 1447239, 'M/TTL': 3122513, 'L/長袖CS': 139970, 'L/半袖CS': 332644, 'L/JK': 0, 'L/BZ': 125100, 'L/VEST': 0, 'L/SK': 88930, 'L/PT': 214500, 'L/SPT': 197727, 'L/OP': 234059, 'L/KNIT': 26000, 'L/ACC': 397313, 'L/TTL': 1772243 },
+      { week: '8/1', 'M/長袖CS': 0, 'M/半袖CS': 1021431, 'M/JK': 35000, 'M/BZ': 0, 'M/VEST': 0, 'M/PT': 244860, 'M/SPT': 557625, 'M/KNIT': 46850, 'M/ACC': 999432, 'M/TTL': 3182998, 'L/長袖CS': 121563, 'L/半袖CS': 296283, 'L/JK': 0, 'L/BZ': 109000, 'L/VEST': 0, 'L/SK': 89513, 'L/PT': 42500, 'L/SPT': 263205, 'L/OP': 213300, 'L/KNIT': 0, 'L/ACC': 319427, 'L/TTL': 1502791 },
+      { week: '8/8', 'M/長袖CS': 36400, 'M/半袖CS': 982903, 'M/JK': 0, 'M/BZ': 89000, 'M/VEST': 0, 'M/PT': 266970, 'M/SPT': 241530, 'M/KNIT': 49500, 'M/ACC': 976729, 'M/TTL': 2956058, 'L/長袖CS': 209271, 'L/半袖CS': 408582, 'L/JK': 0, 'L/BZ': 0, 'L/VEST': 0, 'L/SK': 67530, 'L/PT': 70886, 'L/SPT': 221708, 'L/OP': 210000, 'L/KNIT': 24650, 'L/ACC': 426198, 'L/TTL': 1676825 },
+      { week: '8/15', 'M/長袖CS': 64750, 'M/半袖CS': 812857, 'M/JK': 0, 'M/BZ': 57945, 'M/VEST': 0, 'M/PT': 176354, 'M/SPT': 206439, 'M/KNIT': 27250, 'M/ACC': 1016433, 'M/TTL': 2598312, 'L/長袖CS': 163585, 'L/半袖CS': 326342, 'L/JK': 0, 'L/BZ': 195885, 'L/VEST': 0, 'L/SK': 38786, 'L/PT': 20700, 'L/SPT': 94095, 'L/OP': 177737, 'L/KNIT': 0, 'L/ACC': 273965, 'L/TTL': 1332595 },
+      { week: '8/22', 'M/長袖CS': 78223, 'M/半袖CS': 656775, 'M/JK': 35000, 'M/BZ': 85181, 'M/VEST': 0, 'M/PT': 431910, 'M/SPT': 104860, 'M/KNIT': 187138, 'M/ACC': 1424205, 'M/TTL': 3264842, 'L/長袖CS': 281750, 'L/半袖CS': 345623, 'L/JK': 0, 'L/BZ': 80391, 'L/VEST': 0, 'L/SK': 145300, 'L/PT': 102350, 'L/SPT': 90700, 'L/OP': 25273, 'L/KNIT': 242081, 'L/ACC': 405249, 'L/TTL': 1922717 },
+      { week: '8/29', 'M/長袖CS': 258669, 'M/半袖CS': 635194, 'M/JK': 0, 'M/BZ': 253400, 'M/VEST': 0, 'M/PT': 470722, 'M/SPT': 59106, 'M/KNIT': 750416, 'M/ACC': 843598, 'M/TTL': 3532405, 'L/長袖CS': 309900, 'L/半袖CS': 281144, 'L/JK': 0, 'L/BZ': 46000, 'L/VEST': 0, 'L/SK': 386865, 'L/PT': 211690, 'L/SPT': 47500, 'L/OP': 92009, 'L/KNIT': 1111290, 'L/ACC': 373035, 'L/TTL': 2953333 },
+      { week: '9/5', 'M/長袖CS': 320700, 'M/半袖CS': 771343, 'M/JK': 35000, 'M/BZ': 348900, 'M/VEST': 0, 'M/PT': 963558, 'M/SPT': 46000, 'M/KNIT': 1640596, 'M/ACC': 1388196, 'M/TTL': 5868693, 'L/長袖CS': 726708, 'L/半袖CS': 381297, 'L/JK': 0, 'L/BZ': 90827, 'L/VEST': 0, 'L/SK': 396200, 'L/PT': 283728, 'L/SPT': 48000, 'L/OP': 159000, 'L/KNIT': 2072296, 'L/ACC': 477490, 'L/TTL': 4835946 },
+      { week: '9/12', 'M/長袖CS': 475948, 'M/半袖CS': 679617, 'M/JK': 0, 'M/BZ': 148477, 'M/VEST': 0, 'M/PT': 1199161, 'M/SPT': 15109, 'M/KNIT': 1713400, 'M/ACC': 1301621, 'M/TTL': 5880675, 'L/長袖CS': 803304, 'L/半袖CS': 357999, 'L/JK': 0, 'L/BZ': 330400, 'L/VEST': 0, 'L/SK': 525404, 'L/PT': 470609, 'L/SPT': 20470, 'L/OP': 127687, 'L/KNIT': 1775156, 'L/ACC': 433746, 'L/TTL': 5141440 },
+      { week: '9/19', 'M/長袖CS': 1233935, 'M/半袖CS': 687849, 'M/JK': 0, 'M/BZ': 373311, 'M/VEST': 0, 'M/PT': 2694794, 'M/SPT': 46130, 'M/KNIT': 3252622, 'M/ACC': 1694440, 'M/TTL': 10674831, 'L/長袖CS': 1033416, 'L/半袖CS': 304057, 'L/JK': 0, 'L/BZ': 278239, 'L/VEST': 0, 'L/SK': 691355, 'L/PT': 1305492, 'L/SPT': 25000, 'L/OP': 55100, 'L/KNIT': 2978050, 'L/ACC': 469182, 'L/TTL': 7408984 },
+      { week: '9/26', 'M/長袖CS': 1190944, 'M/半袖CS': 391224, 'M/JK': 21879, 'M/BZ': 292662, 'M/VEST': 0, 'M/PT': 2459701, 'M/SPT': 0, 'M/KNIT': 2429198, 'M/ACC': 1652664, 'M/TTL': 9079664, 'L/長袖CS': 1421219, 'L/半袖CS': 256045, 'L/JK': 0, 'L/BZ': 317560, 'L/VEST': 0, 'L/SK': 824712, 'L/PT': 1207005, 'L/SPT': 50000, 'L/OP': 53000, 'L/KNIT': 2334128, 'L/ACC': 541206, 'L/TTL': 7378098 },
+      { week: '10/3', 'M/長袖CS': 1303316, 'M/半袖CS': 355000, 'M/JK': 31575, 'M/BZ': 990020, 'M/VEST': 0, 'M/PT': 3275629, 'M/SPT': 0, 'M/KNIT': 2913540, 'M/ACC': 1646218, 'M/TTL': 11579142, 'L/長袖CS': 2016304, 'L/半袖CS': 135616, 'L/JK': 0, 'L/BZ': 219150, 'L/VEST': 0, 'L/SK': 667077, 'L/PT': 1449363, 'L/SPT': 50000, 'L/OP': 147309, 'L/KNIT': 2612891, 'L/ACC': 505949, 'L/TTL': 8119159 },
+      { week: '10/10', 'M/長袖CS': 1617299, 'M/半袖CS': 480964, 'M/JK': 0, 'M/BZ': 1503806, 'M/VEST': 0, 'M/PT': 3372846, 'M/SPT': 0, 'M/KNIT': 3554708, 'M/ACC': 2251858, 'M/TTL': 14391151, 'L/長袖CS': 1763727, 'L/半袖CS': 112297, 'L/JK': 0, 'L/BZ': 437714, 'L/VEST': 0, 'L/SK': 688793, 'L/PT': 1383919, 'L/SPT': 25000, 'L/OP': 103656, 'L/KNIT': 2922565, 'L/ACC': 580478, 'L/TTL': 8385649 },
+      { week: '10/17', 'M/長袖CS': 1861129, 'M/半袖CS': 303844, 'M/JK': 35000, 'M/BZ': 1736386, 'M/VEST': 0, 'M/PT': 3445336, 'M/SPT': 0, 'M/KNIT': 3512131, 'M/ACC': 2180563, 'M/TTL': 14758951, 'L/長袖CS': 1985940, 'L/半袖CS': 57361, 'L/JK': 0, 'L/BZ': 407050, 'L/VEST': 0, 'L/SK': 1046430, 'L/PT': 2180489, 'L/SPT': 0, 'L/OP': 106000, 'L/KNIT': 3651751, 'L/ACC': 753672, 'L/TTL': 10877409 },
+      { week: '10/24', 'M/長袖CS': 2395918, 'M/半袖CS': 153354, 'M/JK': 0, 'M/BZ': 1493557, 'M/VEST': 259000, 'M/PT': 2808657, 'M/SPT': 0, 'M/KNIT': 3485049, 'M/ACC': 1803428, 'M/TTL': 14004715, 'L/長袖CS': 2589695, 'L/半袖CS': 49750, 'L/JK': 0, 'L/BZ': 753856, 'L/VEST': 539826, 'L/SK': 746212, 'L/PT': 1626360, 'L/SPT': 0, 'L/OP': 0, 'L/KNIT': 3142212, 'L/ACC': 730919, 'L/TTL': 10789899 },
+      { week: '10/31', 'M/長袖CS': 2864296, 'M/半袖CS': 278216, 'M/JK': 0, 'M/BZ': 2405386, 'M/VEST': 693645, 'M/PT': 3873302, 'M/SPT': 0, 'M/KNIT': 3372779, 'M/ACC': 1923624, 'M/TTL': 17176580, 'L/長袖CS': 2785760, 'L/半袖CS': 51800, 'L/JK': 0, 'L/BZ': 806016, 'L/VEST': 1114375, 'L/SK': 1262709, 'L/PT': 1315554, 'L/SPT': 0, 'L/OP': 0, 'L/KNIT': 3215533, 'L/ACC': 994583, 'L/TTL': 12022430 },
+      { week: '11/7', 'M/長袖CS': 3704615, 'M/半袖CS': 160072, 'M/JK': 0, 'M/BZ': 2188308, 'M/VEST': 816291, 'M/PT': 4262840, 'M/SPT': 0, 'M/KNIT': 2735523, 'M/ACC': 1378826, 'M/TTL': 16418537, 'L/長袖CS': 2350175, 'L/半袖CS': 18000, 'L/JK': 0, 'L/BZ': 893999, 'L/VEST': 708752, 'L/SK': 927718, 'L/PT': 1197708, 'L/SPT': 0, 'L/OP': 53000, 'L/KNIT': 1846340, 'L/ACC': 808684, 'L/TTL': 9169024 },
+      { week: '11/14', 'M/長袖CS': 3364142, 'M/半袖CS': 66000, 'M/JK': 0, 'M/BZ': 1859059, 'M/VEST': 879646, 'M/PT': 3596164, 'M/SPT': 0, 'M/KNIT': 2893900, 'M/ACC': 1579533, 'M/TTL': 14790982, 'L/長袖CS': 2393805, 'L/半袖CS': 0, 'L/JK': 0, 'L/BZ': 966265, 'L/VEST': 1192103, 'L/SK': 1082450, 'L/PT': 1433544, 'L/SPT': 0, 'L/OP': 0, 'L/KNIT': 1877187, 'L/ACC': 834917, 'L/TTL': 10124671 },
+      { week: '11/21', 'M/長袖CS': 2846855, 'M/半袖CS': 49300, 'M/JK': 0, 'M/BZ': 1753823, 'M/VEST': 702300, 'M/PT': 3812897, 'M/SPT': 0, 'M/KNIT': 2599602, 'M/ACC': 1125180, 'M/TTL': 13863583, 'L/長袖CS': 2353587, 'L/半袖CS': 0, 'L/JK': 0, 'L/BZ': 1196899, 'L/VEST': 975644, 'L/SK': 942032, 'L/PT': 2158273, 'L/SPT': 23750, 'L/OP': 0, 'L/KNIT': 2098659, 'L/ACC': 1022154, 'L/TTL': 10975231 },
+      { week: '11/28', 'M/長袖CS': 2735251, 'M/半袖CS': 0, 'M/JK': 0, 'M/BZ': 1340835, 'M/VEST': 970250, 'M/PT': 2815513, 'M/SPT': 0, 'M/KNIT': 3267751, 'M/ACC': 1690753, 'M/TTL': 13245053, 'L/長袖CS': 1929669, 'L/半袖CS': 0, 'L/JK': 0, 'L/BZ': 728414, 'L/VEST': 813488, 'L/SK': 461550, 'L/PT': 1610468, 'L/SPT': 0, 'L/OP': 0, 'L/KNIT': 2076891, 'L/ACC': 747214, 'L/TTL': 8385544 },
+      { week: '12/5', 'M/長袖CS': 2067840, 'M/半袖CS': 40900, 'M/JK': 0, 'M/BZ': 1941036, 'M/VEST': 911044, 'M/PT': 2873831, 'M/SPT': 0, 'M/KNIT': 3374100, 'M/ACC': 1637647, 'M/TTL': 13352998, 'L/長袖CS': 1145756, 'L/半袖CS': 0, 'L/JK': 0, 'L/BZ': 613514, 'L/VEST': 1092369, 'L/SK': 481600, 'L/PT': 1301066, 'L/SPT': 0, 'L/OP': 0, 'L/KNIT': 1350574, 'L/ACC': 951045, 'L/TTL': 6996824 },
+      { week: '12/12', 'M/長袖CS': 2097530, 'M/半袖CS': 33000, 'M/JK': 0, 'M/BZ': 950192, 'M/VEST': 904500, 'M/PT': 2922204, 'M/SPT': 0, 'M/KNIT': 3062067, 'M/ACC': 2414726, 'M/TTL': 12787419, 'L/長袖CS': 1287116, 'L/半袖CS': 37100, 'L/JK': 0, 'L/BZ': 557044, 'L/VEST': 542023, 'L/SK': 434733, 'L/PT': 1234994, 'L/SPT': 0, 'L/OP': 0, 'L/KNIT': 2087150, 'L/ACC': 895073, 'L/TTL': 7094133 },
+      { week: '12/19', 'M/長袖CS': 1916040, 'M/半袖CS': 0, 'M/JK': 0, 'M/BZ': 1196300, 'M/VEST': 615760, 'M/PT': 2186310, 'M/SPT': 0, 'M/KNIT': 3247914, 'M/ACC': 3353679, 'M/TTL': 12837253, 'L/長袖CS': 1282907, 'L/半袖CS': 0, 'L/JK': 0, 'L/BZ': 585783, 'L/VEST': 726657, 'L/SK': 471550, 'L/PT': 1027171, 'L/SPT': 0, 'L/OP': 10900, 'L/KNIT': 1971124, 'L/ACC': 1198166, 'L/TTL': 7316258 },
+      { week: '12/26', 'M/長袖CS': 1261727, 'M/半袖CS': 17000, 'M/JK': 0, 'M/BZ': 664959, 'M/VEST': 319400, 'M/PT': 987290, 'M/SPT': 0, 'M/KNIT': 1778349, 'M/ACC': 1273447, 'M/TTL': 6545772, 'L/長袖CS': 434650, 'L/半袖CS': 0, 'L/JK': 0, 'L/BZ': 127579, 'L/VEST': 171174, 'L/SK': 340000, 'L/PT': 383111, 'L/SPT': 0, 'L/OP': 48000, 'L/KNIT': 1235000, 'L/ACC': 540493, 'L/TTL': 3343007 },
+    ],
+    quantityData: [
+      { week: '7/4', 'M/長袖CS': 5, 'M/半袖CS': 79, 'M/JK': 3, 'M/BZ': 4, 'M/長袖SH': 0, 'M/半袖SH': 17, 'M/VEST': 0, 'M/PT': 16, 'M/SPT': 19, 'M/KNIT': 0, 'M/ACC': 226, 'M/TTL': 369, 'L/長袖CS': 15, 'L/半袖CS': 26, 'L/JK': 0, 'L/BZ': 2, 'L/長袖SH': 0, 'L/半袖SH': 0, 'L/VEST': 0, 'L/SK': 3, 'L/PT': 9, 'L/SPT': 8, 'L/OP': 13, 'L/KNIT': 1, 'L/ACC': 82, 'L/TTL': 159 },
+      { week: '7/11', 'M/長袖CS': 1, 'M/半袖CS': 62, 'M/JK': 2, 'M/BZ': 6, 'M/長袖SH': 0, 'M/半袖SH': 15, 'M/VEST': 0, 'M/PT': 13, 'M/SPT': 11, 'M/KNIT': 2, 'M/ACC': 125, 'M/TTL': 237, 'L/長袖CS': 18, 'L/半袖CS': 21, 'L/JK': 0, 'L/BZ': 1, 'L/長袖SH': 0, 'L/半袖SH': 0, 'L/VEST': 0, 'L/SK': 1, 'L/PT': 14, 'L/SPT': 7, 'L/OP': 23, 'L/KNIT': 1, 'L/ACC': 53, 'L/TTL': 139 },
+      { week: '7/18', 'M/長袖CS': 3, 'M/半袖CS': 64, 'M/JK': 1, 'M/BZ': 1, 'M/長袖SH': 0, 'M/半袖SH': 9, 'M/VEST': 0, 'M/PT': 6, 'M/SPT': 15, 'M/KNIT': 3, 'M/ACC': 161, 'M/TTL': 263, 'L/長袖CS': 15, 'L/半袖CS': 36, 'L/JK': 0, 'L/BZ': 0, 'L/長袖SH': 0, 'L/半袖SH': 0, 'L/VEST': 0, 'L/SK': 2, 'L/PT': 12, 'L/SPT': 10, 'L/OP': 4, 'L/KNIT': 0, 'L/ACC': 68, 'L/TTL': 147 },
+      { week: '7/25', 'M/長袖CS': 1, 'M/半袖CS': 42, 'M/JK': 0, 'M/BZ': 1, 'M/長袖SH': 0, 'M/半袖SH': 11, 'M/VEST': 0, 'M/PT': 6, 'M/SPT': 20, 'M/KNIT': 2, 'M/ACC': 156, 'M/TTL': 239, 'L/長袖CS': 13, 'L/半袖CS': 18, 'L/JK': 0, 'L/BZ': 4, 'L/長袖SH': 0, 'L/半袖SH': 1, 'L/VEST': 0, 'L/SK': 4, 'L/PT': 12, 'L/SPT': 9, 'L/OP': 9, 'L/KNIT': 1, 'L/ACC': 74, 'L/TTL': 145 },
+      { week: '8/1', 'M/長袖CS': 0, 'M/半袖CS': 56, 'M/JK': 1, 'M/BZ': 0, 'M/長袖SH': 0, 'M/半袖SH': 15, 'M/VEST': 0, 'M/PT': 10, 'M/SPT': 24, 'M/KNIT': 2, 'M/ACC': 117, 'M/TTL': 225, 'L/長袖CS': 10, 'L/半袖CS': 16, 'L/JK': 0, 'L/BZ': 3, 'L/長袖SH': 0, 'L/半袖SH': 3, 'L/VEST': 0, 'L/SK': 4, 'L/PT': 4, 'L/SPT': 11, 'L/OP': 8, 'L/KNIT': 0, 'L/ACC': 66, 'L/TTL': 125 },
+      { week: '8/8', 'M/長袖CS': 5, 'M/半袖CS': 52, 'M/JK': 0, 'M/BZ': 2, 'M/長袖SH': 0, 'M/半袖SH': 16, 'M/VEST': 0, 'M/PT': 11, 'M/SPT': 11, 'M/KNIT': 2, 'M/ACC': 131, 'M/TTL': 230, 'L/長袖CS': 20, 'L/半袖CS': 22, 'L/JK': 0, 'L/BZ': 0, 'L/長袖SH': 0, 'L/半袖SH': 2, 'L/VEST': 0, 'L/SK': 3, 'L/PT': 5, 'L/SPT': 10, 'L/OP': 8, 'L/KNIT': 1, 'L/ACC': 60, 'L/TTL': 131 },
+      { week: '8/15', 'M/長袖CS': 4, 'M/半袖CS': 43, 'M/JK': 0, 'M/BZ': 2, 'M/長袖SH': 0, 'M/半袖SH': 14, 'M/VEST': 0, 'M/PT': 8, 'M/SPT': 9, 'M/KNIT': 1, 'M/ACC': 125, 'M/TTL': 206, 'L/長袖CS': 14, 'L/半袖CS': 18, 'L/JK': 0, 'L/BZ': 5, 'L/長袖SH': 0, 'L/半袖SH': 2, 'L/VEST': 0, 'L/SK': 2, 'L/PT': 1, 'L/SPT': 5, 'L/OP': 6, 'L/KNIT': 0, 'L/ACC': 58, 'L/TTL': 111 },
+      { week: '8/22', 'M/長袖CS': 5, 'M/半袖CS': 37, 'M/JK': 1, 'M/BZ': 2, 'M/長袖SH': 5, 'M/半袖SH': 9, 'M/VEST': 0, 'M/PT': 21, 'M/SPT': 5, 'M/KNIT': 8, 'M/ACC': 122, 'M/TTL': 215, 'L/長袖CS': 20, 'L/半袖CS': 20, 'L/JK': 0, 'L/BZ': 2, 'L/長袖SH': 4, 'L/半袖SH': 8, 'L/VEST': 0, 'L/SK': 7, 'L/PT': 5, 'L/SPT': 4, 'L/OP': 1, 'L/KNIT': 10, 'L/ACC': 68, 'L/TTL': 149 },
+      { week: '8/29', 'M/長袖CS': 15, 'M/半袖CS': 35, 'M/JK': 0, 'M/BZ': 7, 'M/長袖SH': 7, 'M/半袖SH': 8, 'M/VEST': 0, 'M/PT': 21, 'M/SPT': 3, 'M/KNIT': 30, 'M/ACC': 115, 'M/TTL': 241, 'L/長袖CS': 20, 'L/半袖CS': 18, 'L/JK': 0, 'L/BZ': 2, 'L/長袖SH': 2, 'L/半袖SH': 3, 'L/VEST': 0, 'L/SK': 17, 'L/PT': 11, 'L/SPT': 2, 'L/OP': 4, 'L/KNIT': 45, 'L/ACC': 64, 'L/TTL': 188 },
+      { week: '9/5', 'M/長袖CS': 20, 'M/半袖CS': 47, 'M/JK': 1, 'M/BZ': 10, 'M/長袖SH': 8, 'M/半袖SH': 11, 'M/VEST': 0, 'M/PT': 43, 'M/SPT': 2, 'M/KNIT': 68, 'M/ACC': 128, 'M/TTL': 338, 'L/長袖CS': 49, 'L/半袖CS': 26, 'L/JK': 0, 'L/BZ': 3, 'L/長袖SH': 5, 'L/半袖SH': 7, 'L/VEST': 0, 'L/SK': 17, 'L/PT': 14, 'L/SPT': 2, 'L/OP': 4, 'L/KNIT': 83, 'L/ACC': 100, 'L/TTL': 310 },
+      { week: '9/12', 'M/長袖CS': 27, 'M/半袖CS': 44, 'M/JK': 0, 'M/BZ': 5, 'M/長袖SH': 13, 'M/半袖SH': 5, 'M/VEST': 0, 'M/PT': 50, 'M/SPT': 1, 'M/KNIT': 69, 'M/ACC': 142, 'M/TTL': 356, 'L/長袖CS': 52, 'L/半袖CS': 25, 'L/JK': 0, 'L/BZ': 9, 'L/長袖SH': 9, 'L/半袖SH': 7, 'L/VEST': 0, 'L/SK': 22, 'L/PT': 19, 'L/SPT': 1, 'L/OP': 4, 'L/KNIT': 72, 'L/ACC': 85, 'L/TTL': 305 },
+      { week: '9/19', 'M/長袖CS': 75, 'M/半袖CS': 48, 'M/JK': 0, 'M/BZ': 11, 'M/長袖SH': 26, 'M/半袖SH': 12, 'M/VEST': 0, 'M/PT': 113, 'M/SPT': 2, 'M/KNIT': 133, 'M/ACC': 192, 'M/TTL': 612, 'L/長袖CS': 64, 'L/半袖CS': 22, 'L/JK': 0, 'L/BZ': 8, 'L/長袖SH': 9, 'L/半袖SH': 7, 'L/VEST': 0, 'L/SK': 30, 'L/PT': 57, 'L/SPT': 1, 'L/OP': 2, 'L/KNIT': 119, 'L/ACC': 104, 'L/TTL': 423 },
+      { week: '9/26', 'M/長袖CS': 73, 'M/半袖CS': 27, 'M/JK': 1, 'M/BZ': 7, 'M/長袖SH': 27, 'M/半袖SH': 7, 'M/VEST': 0, 'M/PT': 105, 'M/SPT': 0, 'M/KNIT': 102, 'M/ACC': 169, 'M/TTL': 518, 'L/長袖CS': 85, 'L/半袖CS': 17, 'L/JK': 0, 'L/BZ': 7, 'L/長袖SH': 12, 'L/半袖SH': 9, 'L/VEST': 0, 'L/SK': 37, 'L/PT': 52, 'L/SPT': 2, 'L/OP': 1, 'L/KNIT': 95, 'L/ACC': 95, 'L/TTL': 412 },
+      { week: '10/3', 'M/長袖CS': 77, 'M/半袖CS': 23, 'M/JK': 1, 'M/BZ': 31, 'M/長袖SH': 48, 'M/半袖SH': 6, 'M/VEST': 0, 'M/PT': 136, 'M/SPT': 0, 'M/KNIT': 116, 'M/ACC': 183, 'M/TTL': 621, 'L/長袖CS': 116, 'L/半袖CS': 11, 'L/JK': 0, 'L/BZ': 5, 'L/長袖SH': 15, 'L/半袖SH': 1, 'L/VEST': 0, 'L/SK': 30, 'L/PT': 62, 'L/SPT': 2, 'L/OP': 3, 'L/KNIT': 107, 'L/ACC': 106, 'L/TTL': 458 },
+      { week: '10/10', 'M/長袖CS': 89, 'M/半袖CS': 29, 'M/JK': 0, 'M/BZ': 50, 'M/長袖SH': 73, 'M/半袖SH': 9, 'M/VEST': 0, 'M/PT': 142, 'M/SPT': 0, 'M/KNIT': 141, 'M/ACC': 225, 'M/TTL': 758, 'L/長袖CS': 97, 'L/半袖CS': 8, 'L/JK': 0, 'L/BZ': 12, 'L/長袖SH': 18, 'L/半袖SH': 0, 'L/VEST': 0, 'L/SK': 29, 'L/PT': 59, 'L/SPT': 1, 'L/OP': 2, 'L/KNIT': 113, 'L/ACC': 120, 'L/TTL': 459 },
+      { week: '10/17', 'M/長袖CS': 99, 'M/半袖CS': 21, 'M/JK': 1, 'M/BZ': 58, 'M/長袖SH': 77, 'M/半袖SH': 8, 'M/VEST': 0, 'M/PT': 143, 'M/SPT': 0, 'M/KNIT': 137, 'M/ACC': 235, 'M/TTL': 779, 'L/長袖CS': 107, 'L/半袖CS': 5, 'L/JK': 0, 'L/BZ': 12, 'L/長袖SH': 31, 'L/半袖SH': 4, 'L/VEST': 0, 'L/SK': 44, 'L/PT': 93, 'L/SPT': 0, 'L/OP': 2, 'L/KNIT': 143, 'L/ACC': 119, 'L/TTL': 560 },
+      { week: '10/24', 'M/長袖CS': 124, 'M/半袖CS': 9, 'M/JK': 0, 'M/BZ': 47, 'M/長袖SH': 79, 'M/半袖SH': 1, 'M/VEST': 8, 'M/PT': 116, 'M/SPT': 0, 'M/KNIT': 132, 'M/ACC': 194, 'M/TTL': 710, 'L/長袖CS': 137, 'L/半袖CS': 4, 'L/JK': 0, 'L/BZ': 22, 'L/長袖SH': 30, 'L/半袖SH': 2, 'L/VEST': 17, 'L/SK': 30, 'L/PT': 68, 'L/SPT': 0, 'L/OP': 0, 'L/KNIT': 123, 'L/ACC': 113, 'L/TTL': 546 },
+      { week: '10/31', 'M/長袖CS': 143, 'M/半袖CS': 18, 'M/JK': 0, 'M/BZ': 78, 'M/長袖SH': 83, 'M/半袖SH': 6, 'M/VEST': 21, 'M/PT': 152, 'M/SPT': 0, 'M/KNIT': 111, 'M/ACC': 232, 'M/TTL': 844, 'L/長袖CS': 141, 'L/半袖CS': 4, 'L/JK': 0, 'L/BZ': 24, 'L/長袖SH': 21, 'L/半袖SH': 4, 'L/VEST': 34, 'L/SK': 52, 'L/PT': 55, 'L/SPT': 0, 'L/OP': 0, 'L/KNIT': 114, 'L/ACC': 145, 'L/TTL': 594 },
+      { week: '11/7', 'M/長袖CS': 183, 'M/半袖CS': 10, 'M/JK': 0, 'M/BZ': 70, 'M/長袖SH': 56, 'M/半袖SH': 3, 'M/VEST': 24, 'M/PT': 158, 'M/SPT': 0, 'M/KNIT': 86, 'M/ACC': 165, 'M/TTL': 755, 'L/長袖CS': 116, 'L/半袖CS': 1, 'L/JK': 0, 'L/BZ': 25, 'L/長袖SH': 17, 'L/半袖SH': 2, 'L/VEST': 21, 'L/SK': 38, 'L/PT': 46, 'L/SPT': 0, 'L/OP': 1, 'L/KNIT': 63, 'L/ACC': 114, 'L/TTL': 444 },
+      { week: '11/14', 'M/長袖CS': 166, 'M/半袖CS': 4, 'M/JK': 0, 'M/BZ': 58, 'M/長袖SH': 26, 'M/半袖SH': 2, 'M/VEST': 27, 'M/PT': 129, 'M/SPT': 0, 'M/KNIT': 93, 'M/ACC': 177, 'M/TTL': 682, 'L/長袖CS': 119, 'L/半袖CS': 0, 'L/JK': 0, 'L/BZ': 28, 'L/長袖SH': 17, 'L/半袖SH': 0, 'L/VEST': 37, 'L/SK': 44, 'L/PT': 54, 'L/SPT': 0, 'L/OP': 0, 'L/KNIT': 62, 'L/ACC': 115, 'L/TTL': 476 },
+      { week: '11/21', 'M/長袖CS': 141, 'M/半袖CS': 3, 'M/JK': 0, 'M/BZ': 53, 'M/長袖SH': 50, 'M/半袖SH': 0, 'M/VEST': 21, 'M/PT': 139, 'M/SPT': 0, 'M/KNIT': 83, 'M/ACC': 167, 'M/TTL': 657, 'L/長袖CS': 120, 'L/半袖CS': 0, 'L/JK': 0, 'L/BZ': 34, 'L/長袖SH': 10, 'L/半袖SH': 0, 'L/VEST': 31, 'L/SK': 38, 'L/PT': 85, 'L/SPT': 1, 'L/OP': 0, 'L/KNIT': 71, 'L/ACC': 135, 'L/TTL': 525 },
+      { week: '11/28', 'M/長袖CS': 136, 'M/半袖CS': 0, 'M/JK': 0, 'M/BZ': 42, 'M/長袖SH': 22, 'M/半袖SH': 0, 'M/VEST': 29, 'M/PT': 105, 'M/SPT': 0, 'M/KNIT': 96, 'M/ACC': 156, 'M/TTL': 586, 'L/長袖CS': 100, 'L/半袖CS': 0, 'L/JK': 0, 'L/BZ': 21, 'L/長袖SH': 1, 'L/半袖SH': 0, 'L/VEST': 27, 'L/SK': 19, 'L/PT': 61, 'L/SPT': 0, 'L/OP': 0, 'L/KNIT': 60, 'L/ACC': 111, 'L/TTL': 400 },
+      { week: '12/5', 'M/長袖CS': 100, 'M/半袖CS': 3, 'M/JK': 0, 'M/BZ': 57, 'M/長袖SH': 23, 'M/半袖SH': 2, 'M/VEST': 26, 'M/PT': 102, 'M/SPT': 0, 'M/KNIT': 98, 'M/ACC': 209, 'M/TTL': 620, 'L/長袖CS': 57, 'L/半袖CS': 0, 'L/JK': 0, 'L/BZ': 16, 'L/長袖SH': 3, 'L/半袖SH': 0, 'L/VEST': 34, 'L/SK': 18, 'L/PT': 48, 'L/SPT': 0, 'L/OP': 0, 'L/KNIT': 41, 'L/ACC': 123, 'L/TTL': 340 },
+      { week: '12/12', 'M/長袖CS': 100, 'M/半袖CS': 2, 'M/JK': 0, 'M/BZ': 26, 'M/長袖SH': 20, 'M/半袖SH': 0, 'M/VEST': 27, 'M/PT': 105, 'M/SPT': 0, 'M/KNIT': 88, 'M/ACC': 257, 'M/TTL': 625, 'L/長袖CS': 67, 'L/半袖CS': 2, 'L/JK': 0, 'L/BZ': 13, 'L/長袖SH': 1, 'L/半袖SH': 0, 'L/VEST': 17, 'L/SK': 17, 'L/PT': 45, 'L/SPT': 0, 'L/OP': 0, 'L/KNIT': 58, 'L/ACC': 127, 'L/TTL': 347 },
+      { week: '12/19', 'M/長袖CS': 90, 'M/半袖CS': 0, 'M/JK': 0, 'M/BZ': 31, 'M/長袖SH': 15, 'M/半袖SH': 1, 'M/VEST': 18, 'M/PT': 75, 'M/SPT': 0, 'M/KNIT': 85, 'M/ACC': 330, 'M/TTL': 645, 'L/長袖CS': 61, 'L/半袖CS': 0, 'L/JK': 0, 'L/BZ': 13, 'L/長袖SH': 2, 'L/半袖SH': 0, 'L/VEST': 22, 'L/SK': 18, 'L/PT': 36, 'L/SPT': 0, 'L/OP': 1, 'L/KNIT': 53, 'L/ACC': 145, 'L/TTL': 351 },
+      { week: '12/26', 'M/長袖CS': 61, 'M/半袖CS': 1, 'M/JK': 0, 'M/BZ': 18, 'M/長袖SH': 12, 'M/半袖SH': 0, 'M/VEST': 9, 'M/PT': 34, 'M/SPT': 0, 'M/KNIT': 47, 'M/ACC': 126, 'M/TTL': 308, 'L/長袖CS': 21, 'L/半袖CS': 0, 'L/JK': 0, 'L/BZ': 4, 'L/長袖SH': 3, 'L/半袖SH': 0, 'L/VEST': 5, 'L/SK': 13, 'L/PT': 14, 'L/SPT': 0, 'L/OP': 1, 'L/KNIT': 32, 'L/ACC': 70, 'L/TTL': 163 },// 2022年のデータをここに追加
+    ],
+  },
+  2023: {
+    amountData,
+    quantityData,
+  },
+  2024: {
+    amountData: [
+      // 2024年のデータをここに追加
+    ],
+    quantityData: [
+      // 2024年のデータをここに追加
+    ],
+  },
+}
+
 export function WeeklySalesTrendChartComponent() {
   const [visibleLines, setVisibleLines] = useState({
     'M/TTL': true,
@@ -101,6 +175,7 @@ export function WeeklySalesTrendChartComponent() {
   })
   const [category, setCategory] = useState('all')
   const [showAmount, setShowAmount] = useState(true)
+  const [year, setYear] = useState(2023) // デフォルトを2023年に設定
 
   const toggleLine = (dataKey: string) => {
     setVisibleLines(prevState => ({
@@ -180,6 +255,16 @@ export function WeeklySalesTrendChartComponent() {
       <CardContent>
         <div className="flex justify-between mb-4">
           <div className="space-x-2">
+            <Select value={year.toString()} onValueChange={(value) => setYear(Number(value))}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="年度を選択" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="2022">2022年</SelectItem>
+                <SelectItem value="2023">2023年</SelectItem>
+                <SelectItem value="2024">2024年</SelectItem>
+              </SelectContent>
+            </Select>
             <Select value={category} onValueChange={setCategory}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="カテゴリーを選択" />
@@ -217,7 +302,7 @@ export function WeeklySalesTrendChartComponent() {
 
         <ResponsiveContainer width="100%" height={500}>
           <LineChart
-            data={showAmount ? amountData : quantityData}
+            data={showAmount ? salesData[year as keyof typeof salesData].amountData : salesData[year as keyof typeof salesData].quantityData}
             margin={{
               top: 5,
               right: 30,
